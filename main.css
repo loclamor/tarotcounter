@@ -1,0 +1,25 @@
+#scores th[colspan] {
+	text-align: center;
+}
+
+#scores tbody td {
+	text-align: right;
+}
+
+#scores th:first-child {
+	width: 200px;
+}
+
+#scores th span[updateTurn] {
+	cursor: pointer;
+}
+
+.table>tfoot.active>tr>th,
+.table>tfoot.active>tr>td {
+	background-color: #f5f5f5;
+}
+
+input[score],
+input[points] {
+	width: 60px;
+}
