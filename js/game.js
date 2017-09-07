@@ -106,7 +106,7 @@ var Game = function() {
 		console.log("adding", turn);
 		this.turnNum++;
 		this.playedTurns.push(turn)
-		//inform player that new turn end with their score
+			//inform player that new turn end with their score
 		for (var p_name in this.players) {
 			var p_score = this.getPlayerScoreFromTurn(p_name, turn);
 			this.players[p_name].addTurn(p_score);
@@ -222,7 +222,7 @@ var Game = function() {
 		}
 
 		p_scores.sort(function(a, b) {
-			return a.score < b.score;
+			return a.score > b.score;
 		});
 
 		var rank = 0;
