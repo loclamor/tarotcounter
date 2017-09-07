@@ -6,11 +6,16 @@
 	text-align: right;
 }
 
+#scores tbody td.info {
+	background-color: #e8e8e8;
+}
+
 #scores th:first-child {
 	width: 200px;
 }
 
-#scores th span[updateTurn] {
+#scores th span[updateTurn],
+.player-header {
 	cursor: pointer;
 }
 

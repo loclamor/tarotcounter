@@ -7,31 +7,27 @@
 		TarotCounter
 	</title>
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://cdn.favier.it/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="main.css">
 
 	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="http://cdn.favier.it/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 	<!-- jquery-2.1.4.min.js -->
-	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="http://cdn.favier.it/jquery/jquery-2.2.4.min.js"></script>
 	<script src="js/JQuery.enterKey.js"></script>
+	<script src="js/moderule.js"></script>
 	<script src="js/player.js"></script>
+	<script src="js/turntype.js"></script>
+	<script src="js/turnRenderer.js"></script>
 	<script src="js/turn.js"></script>
+	<script src="js/nextturn.js"></script>
+	<script src="js/gamemode.js"></script>
 	<script src="js/game.js"></script>
 	<script src="js/main.js"></script>
 </head>
 
 <body>
 	<h1>TarotCounter</h1>
-
-	<div class="btn-group devmode" data-toggle="buttons">
-		<label class="btn btn-primary active">
-			<input type="radio" name="tarottype" id="tarot" autocomplete="off" checked> Tarot
-		</label>
-		<label class="btn btn-primary">
-			<input type="radio" name="tarottype" id="tasgros" autocomplete="off"> TasGros
-		</label>
-	</div>
 
 	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addPlayerModal">
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> &nbsp;Joueur
@@ -46,7 +42,7 @@
 					<h4 class="modal-title" id="addPlayerModalLabel">Ajouter un joueur</h4>
 				</div>
 				<div class="modal-body">
-					<p class="text-danger" id="addPlayerModalErrMessages"></p>
+					<p class="text-danger modal-messages" id="addPlayerModalErrMessages"></p>
 					<div class="form-horizontal">
 						<div class="form-group">
 							<label for="newUsername" class="col-sm-2 control-label">Nom</label>
@@ -70,19 +66,51 @@
 			</div>
 		</div>
 	</div>
+	<!-- Modal -->
+	<div class="modal fade" id="editPlayerModal" tabindex="-1" role="dialog" aria-labelledby="editPlayerModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="editPlayerModalLabel">Modifier un joueur</h4>
+				</div>
+				<div class="modal-body">
+					<p class="text-danger modal-messages" id="editPlayerModalErrMessages"></p>
+					<div class="form-horizontal">
+						<div class="form-group">
+							<label for="newUsername" class="col-sm-2 control-label">Nom</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="newUsername" placeholder="Nom du joueur">
+								<input type="hidden" class="form-control" id="oldUsername" value="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="newUserPlace" class="col-sm-2 control-label">Après</label>
+							<div class="col-sm-10">
+								<select class="form-control" id="newUserPlace"></select>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+					<button type="button" class="btn btn-primary" id="editPlayerButton">Modifier</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<table id="scores" class="table table-bordered table-hover">
 		<thead></thead>
 		<tbody></tbody>
-		<tfoot class="active">
-
-		</tfoot>
+		<tfoot></tfoot>
 	</table>
 	<div class="form-inline">
 		<div class="form-group">
-			<label for="gametype">Ajouter manche : </label>
+			<label for="turntype">Ajouter manche : </label>
 			<div class="input-group">
-				<select id="gametype" class="form-control">
+				<select id="turntype" class="form-control">
 					<option value="null">Choisir...</option>
 					<option value="enculette">Enculette</option>
 					<option value="petite">Petite</option>
@@ -92,54 +120,23 @@
 					<option value="gardecontre">Garde-Contre</option>
 				</select>
 				<span class="input-group-btn">
-		        <button id="gametypeAdd" class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+		        <button id="turntypeAdd" class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
 				</span>
 			</div>
 		</div>
 	</div>
-	<table class="table table-bordered table-hover">
-		<thead>
-			<tr>
-				<th rowspan="2">Nombre de bouts</th>
-				<th colspan="2" style="text-align:center">Minimum de points</th>
-			</tr>
-			<tr>
-				<th>Attaque</th>
-				<th>Défense</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>0</td>
-				<td>56</td>
-				<td>55</td>
-			</tr>
-			<tr>
-				<td>1</td>
-				<td>51</td>
-				<td>50</td>
-			</tr>
-			<tr>
-				<td>2</td>
-				<td>41</td>
-				<td>40</td>
-			</tr>
-			<tr>
-				<td>3</td>
-				<td>36</td>
-				<td>35</td>
-			</tr>
-		</tbody>
-	</table>
-	<!--
-		Nombre de Bouts - Minimum de points
-		0 - 56
-		1 - 51
-		2 - 41
-		3 - 36
-	-->
+	<br/>
+	<div id="modes"></div>
+	<br/>
+	<div id="rules"></div>
+
+	<div id="improvements">
+		<ul>
+			<li>Supprimer un tour</li>
+		</ul>
+	</div>
 	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="http://cdn.favier.it/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 
 </html>
