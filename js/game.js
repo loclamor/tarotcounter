@@ -222,7 +222,7 @@ var Game = function() {
 		}
 
 		p_scores.sort(function(a, b) {
-			return a.score > b.score;
+			return a.score < b.score;
 		});
 
 		var rank = 0;
